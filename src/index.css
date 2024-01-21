@@ -5,9 +5,72 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* padding: 20px; */
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+img {
+  width: 100px;
+}
+
+h1 {
+  background-color: #E1BE6A;
+  margin: 0px;
+  padding: 20px;
+}
+
+p {
+  padding: 0px 10px;
+}
+
+.vitals-grid {
+  background-color: black;
+  color: white;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 20px 0px;
+}
+
+.vitals-cell {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.vitals-icon {
+  margin: auto;
+  color: #40B0A6;
+}
+
+.vitals-cell p {
+  padding: 0px;
+  margin: 0px;
+  margin-top: 12px;
+  /* width: 100%;
+  text-align: center; */
+}
+
+.menu {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  align-items: center;
+}
+
+.menu p {
+  width: 100%;
+  text-align: center;
+  padding: 0;
+  margin: 10px 0px;
+}
+
+.menu .menu-icon {
+  margin: auto;
+  width: fit-content;
 }
