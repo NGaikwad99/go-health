@@ -1,7 +1,11 @@
 function Chat() {
+    const askOllama = () => {
+        console.log("clicked");
+    }
+
     return <div>
         <input type="text" />
-        <button>Send</button>
+        <button onClick={askOllama}>Send</button>
     </div>
 }
 

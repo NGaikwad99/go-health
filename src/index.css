@@ -74,3 +74,6 @@ p {
   margin: auto;
   width: fit-content;
 }
+button {
+  background-color: #40B0A6;
+}
