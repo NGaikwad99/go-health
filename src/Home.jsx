@@ -47,13 +47,6 @@ function Home() {
     return <div>
         <h1>Summary</h1>
         <div className="vitals-grid">
-        <div>
-      {error ? (
-        <p>Error: {error}</p>
-      ) : (
-        <pre>{JSON.stringify(data, null, 2)}</pre>
-      )}
-    </div>
             <div class="vitals-cell">
                 <FaHeartbeat className="vitals-icon" size="70px" />
                 <p>80 bpm</p>
