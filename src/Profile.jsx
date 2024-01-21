@@ -1,5 +1,6 @@
 import profilePhoto from "./assets/images/johndoe.jpg";
 
+
 function Profile() {
     return <div>
         <h1>Profile</h1>
