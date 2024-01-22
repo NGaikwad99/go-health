@@ -18,7 +18,9 @@ function Home() {
 
     useEffect(() => {
         const fetchData = async () => {
+            
           try {
+            console.log("running");
             const response = await fetch('http://127.0.0.1:5000//getHealthData/1');
             
             if (!response.ok) {
@@ -26,38 +28,33 @@ function Home() {
             }
     
             const result = await response.json();
-            setData(result);
+            setData(result.data[result.data.length - 1]);
+            console.log(result.data[result.data.length - 1]);
           } catch (error) {
             setError(error.message);
           }
         };
     
-        fetchData();
+        const fetchDataInterval = setInterval(fetchData, 1000);
+        // fetchData();
+
+        return () => clearInterval(fetchDataInterval);
       }, []);
-
-    // useEffect(() => {
-    //     // Fetch data from Flask server
-    //     axios.get('http://127.0.0.1:5000/receive_data')
-    //         .then(response => setData(response.data.message))
-    //         .catch(error => console.error('Error fetching data:', error));
-    // }, []);
-
-    
 
     return <div>
         <h1>Summary</h1>
         <div className="vitals-grid">
             <div class="vitals-cell">
                 <FaHeartbeat className="vitals-icon" size="70px" />
-                <p>80 bpm</p>
+                <p>{data.HeartRate} bpm</p>
             </div>
             <div class="vitals-cell">
                 <FaTemperatureLow className="vitals-icon" size="70px" />
-                <p>97 F</p>
+                <p>{data.BodyTemperature} F</p>
             </div>
             <div class="vitals-cell">
                 <FaDroplet className="vitals-icon" size="70px" />
-                <p>100 mmHg</p>
+                <p>{data.BloodPressure} mmHg</p>
             </div>
             <div class="vitals-cell">
                 <FaWalking className="vitals-icon" size="70px" />

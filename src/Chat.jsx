@@ -4,27 +4,54 @@ import info from './info';
 
 
 function Chat() {
-    const [data, setData] = useState('');
     const [message, setMessage] = useState('');
     const [dynamicArray, setDynamicArray] = useState([]);
+
+    const [data, setData] = useState('');
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+
+            try {
+                console.log("running");
+                const response = await fetch('http://127.0.0.1:5000//getHealthData/1');
+
+                if (!response.ok) {
+                    throw new Error(`Request failed with status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                setData(result.data[result.data.length - 1]);
+                console.log(result.data[result.data.length - 1]);
+            } catch (error) {
+                setError(error.message);
+            }
+        };
+
+        const fetchDataInterval = setInterval(fetchData, 1000);
+        fetchData();
+
+        return () => clearInterval(fetchDataInterval);
+
+    }, []);
 
     const handleInputChange = (event) => {
         setMessage(event.target.value);
     };
 
-    useEffect(() => {
-        // Fetch data from Flask server
-        axios.get('http://127.0.0.1:5000/receive_data')
-            .then(response => setData(response.data.message))
-            .catch(error => console.error('Error fetching data:', error));
-    }, []);
+    // if (data.HeartRate > 100) {
+    //     message = "Please check the vitals to see if all is well."
+    //     fetchData();
+    // }
 
     const fetchData = async () => {
         const infoString = JSON.stringify(info);
-        const prompt = message + "My details are as follows: " + infoString;
+        const prompt = message + "My details are as follows: " + infoString + "My current vitals are as follows: " + "Heart rate " +  data.HeartRate + "blood pressure " + data.BloodPressure + " body temperature " + data.BodyTemperature;
         let jsonResponse = [];
         setDynamicArray(prevArray => [...prevArray, message]);
         setMessage("");
+        console.log(prompt);
 
         try {
             const response = await axios.post('http://localhost:11434/api/generate', {
@@ -52,8 +79,6 @@ function Chat() {
             console.error('Unexpected jsonResponse type or format:', jsonResponse);
         }
     };
-
-
 
     return <div>
         <h1>Ask Ollama</h1>
